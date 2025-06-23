@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import BlackListToken from "../models/blacklistToken.model.js"
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
@@ -114,7 +115,7 @@ export const onboarding = async (req, res) => {
 export const logout = async (req, res) => {
     const token = req.cookies.token;
 
-    await blackListToken.create({ token });
+    await BlackListToken.create({ token });
 
     res.clearCookie("token", {
         httpOnly: true,
