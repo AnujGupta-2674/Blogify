@@ -89,15 +89,14 @@ export const onboarding = async (req, res) => {
     try {
         const loggedinUserId = req.user._id;
 
-        const { fullName, bio, location } = req.body;
-        if (!fullName || !bio || !location) {
-            return res.status(400).json({ message: "All fields are required", missingFields: ["fullName", "bio", "location"].filter(field => !req.body[field]) });
+        const { fullName, bio } = req.body;
+        if (!fullName || !bio) {
+            return res.status(400).json({ message: "All fields are required", missingFields: ["fullName", "bio"].filter(field => !req.body[field]) });
         }
 
         const updatedUser = await User.findByIdAndUpdate(loggedinUserId, {
             fullName,
             bio,
-            location,
             isOnboarded: true
         }, { new: true });
         if (!updatedUser) {
