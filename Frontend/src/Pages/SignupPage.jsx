@@ -134,7 +134,7 @@ const SignupPage = () => {
             <div className="text-center space-y-3 mt-6">
               <h2 className="text-xl font-semibold">Connect with language partners worldwide</h2>
               <p className="opacity-70">
-                Practice conversations, make friends, and improve your language skills together
+                Collaborate, make friends, and improve your language skills together
               </p>
             </div>
           </div>
