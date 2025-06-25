@@ -46,7 +46,7 @@ const SignupPage = () => {
           </div>
           {/* Error Message */}
           {error && (
-            toast.success(error.repsonse.data.message)
+            toast.error(error.repsonse.data.message)
           )}
           <div className='w-full'>
             <form onSubmit={handleSignup}>
@@ -132,9 +132,9 @@ const SignupPage = () => {
             </div>
 
             <div className="text-center space-y-3 mt-6">
-              <h2 className="text-xl font-semibold">Connect with language partners worldwide</h2>
+              <h2 className="text-xl font-semibold">Connect with blogs partners worldwide</h2>
               <p className="opacity-70">
-                Collaborate, make friends, and improve your language skills together
+                Make friends, collaborate and post blogs on tech.
               </p>
             </div>
           </div>

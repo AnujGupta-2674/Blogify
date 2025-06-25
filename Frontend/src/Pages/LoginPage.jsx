@@ -33,19 +33,12 @@ const LoginPage = () => {
           <div className='mb-4 flex items-center justify-start gap-2'>
             <ShipWheelIcon className="size-9 text-primary" />
             <span className='text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-wider'>
-              Streamify
+              Blogify
             </span>
           </div>
           {/* Error Message */}
           {error && (
-            <div className='alert alert-error shadow-lg mb-4'>
-              <div>
-                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span>{error.response.data.message}</span>
-              </div>
-            </div>
+            toast.error(error.repsonse.data.message)
           )}
           <div className='w-full'>
             <form onSubmit={handleLogin}>
@@ -115,9 +108,9 @@ const LoginPage = () => {
             </div>
 
             <div className="text-center space-y-3 mt-6">
-              <h2 className="text-xl font-semibold">Connect with language partners worldwide</h2>
+              <h2 className="text-xl font-semibold">Connect with blogs partners worldwide</h2>
               <p className="opacity-70">
-                Practice conversations, make friends, and improve your language skills together
+                Colloborate, make friends, and improve your blog skills together
               </p>
             </div>
           </div>
