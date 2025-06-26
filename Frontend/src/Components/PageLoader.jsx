@@ -1,10 +1,10 @@
 import { LoaderIcon } from 'lucide-react'
-// import { useThemeStore } from '../store/useThemeStore'
+import { useThemeStore } from '../store/useThemeStore'
 
 const PageLoader = () => {
-    // const { theme } = useThemeStore();
+    const { theme } = useThemeStore();
     return (
-        <div className="h-screen flex items-center justify-center" data-theme="forest">
+        <div className="h-screen flex items-center justify-center" data-theme={theme}>
             <LoaderIcon className="animate-spin size-10 text-primary" />
         </div>
     )

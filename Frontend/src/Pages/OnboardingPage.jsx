@@ -40,11 +40,11 @@ const OnboardingPage = () => {
   };
 
   const handleRandomAvatar = () => {
-    const seed = Math.floor(Math.random() * 9999);
-    const randomAvatar = `https://api.dicebear.com/8.x/bottts/svg?seed=${seed}`;
+    const idx = Math.floor(Math.random() * 100) + 1; // 1-100 included
+    const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
 
-    setFormState(prev => ({ ...prev, profilePic: randomAvatar }));
-    toast.success("New bot-style avatar generated!");
+    setFormState({ ...formState, profilePic: randomAvatar });
+    toast.success("Random profile picture generated!");
   };
 
   return (

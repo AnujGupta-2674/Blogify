@@ -17,11 +17,20 @@ export const signup = async (signupData) => {
 
 export const login = async (loginData) => {
     const response = await axiosInstance.post(`/auth/login`, loginData);
-    console.log(response);
+    return response.data;
+}
+
+export const logout = async () => {
+    const response = await axiosInstance.get(`/auth/logout`);
     return response.data;
 }
 
 export const completeOnboarding = async (onboardingData) => {
     const response = await axiosInstance.post("/auth/onboarding", onboardingData);
+    return response.data;
+}
+
+export const getRecommendedBlogs = async () => {
+    const response = await axiosInstance.get("/blogs/recommend-blogs");
     return response.data;
 }

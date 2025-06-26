@@ -9,6 +9,6 @@ router.use(authMiddleware);
 router.get('/', blogsController.getUserBlogs);
 router.get('/recommend-blogs', blogsController.recommendedBlogs);
 
-router.post("/new-blog",blogsController.createBlog);
+router.post("/new-blog", blogsController.createBlog);
 
 export default router;
