@@ -51,7 +51,7 @@ const Navbar = () => {
                         </div>
                         {isProfileOpen && (
                             <div className="absolute right-0 mt-2 p-1 shadow-2xl bg-base-200 backdrop-blur-lg rounded-2xl
-        w-30 border border-base-content/10 max-h-25 overflow-y-auto flex flex-col justify-center items-center">
+        w-35 border border-base-content/10 h-[140px] flex flex-col justify-center items-center overflow-y-auto">
                                 <Link
                                     to="/profile"
                                     className="block px-4 py-2 text-sm font-medium hover:bg-base-content/5"
@@ -65,6 +65,13 @@ const Navbar = () => {
                                     onClick={() => setisProfileOpen(false)}
                                 >
                                     Collaborate
+                                </Link>
+                                <Link
+                                    to="/friends"
+                                    className="block px-4 py-2 text-sm font-medium hover:bg-base-content/5"
+                                    onClick={() => setisProfileOpen(false)}
+                                >
+                                    Explore Friends
                                 </Link>
                             </div>
                         )}

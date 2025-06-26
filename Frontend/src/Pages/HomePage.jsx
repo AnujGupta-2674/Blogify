@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { useQuery } from "@tanstack/react-query"
 import PageLoader from "../Components/PageLoader.jsx"
 import { getRecommendedBlogs } from '../lib/api.js';
@@ -25,7 +24,15 @@ const HomePage = () => {
                     <div className="card-body col-span-12 md:col-span-8">
                         <h2 className="card-title">{blog.title}</h2>
                         <p>{blog.content}</p>
-                        <p>~{blog.author.fullName}</p>
+                        <div>
+                            {blog.tags.map((tag, idx) => (
+                                <span key={idx} className="badge badge-secondary mr-2 p-3">{tag}</span>
+                            ))}
+                        </div>
+                        <p className="font-bold text-xl font-serif tracking-wide hover:text-blue-600 transition duration-200">
+                            ~{blog.author.fullName}
+                        </p>
+                        <p className='text-xs text-gray-500'>{new Date(blog.createdAt).toLocaleDateString()}</p>
                         <div className="card-actions justify-end">
                             <button className="btn btn-primary" onClick={() => { setLikes((prev) => prev + 1) }}>Likes</button>
                         </div>
