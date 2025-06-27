@@ -26,7 +26,7 @@ const HomePage = () => {
                         <p>{blog.content}</p>
                         <div>
                             {blog.tags.map((tag, idx) => (
-                                <span key={idx} className="badge badge-secondary mr-2 p-3">{tag}</span>
+                                <span key={idx} className="badge badge-secondary mr-2 p-4">{tag}</span>
                             ))}
                         </div>
                         <p className="font-bold text-xl font-serif tracking-wide hover:text-blue-600 transition duration-200">

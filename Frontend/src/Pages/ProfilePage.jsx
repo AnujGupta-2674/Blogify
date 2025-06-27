@@ -130,7 +130,7 @@ const ProfilePage = () => {
                                 <p className='text-sm text-gray-500'>{blog.content.slice(0, 100)}...</p>
                                 <div className='flex flex-wrap mt-4'>
                                     {blog.tags.map((tag, tagIdx) => (
-                                        <span key={tagIdx} className='badge badge-secondary mr-1 mt-2'>{tag}</span>
+                                        <span key={tagIdx} className='badge p-4 badge-secondary mr-1 mt-2'>{tag}</span>
                                     ))}
                                 </div>
                             </div>
