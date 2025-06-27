@@ -34,3 +34,29 @@ export const getRecommendedBlogs = async () => {
     const response = await axiosInstance.get("/blogs/recommend-blogs");
     return response.data;
 }
+
+export const getUserBlogs = async () => {
+    const response = await axiosInstance.get("/blogs");
+    return response.data;
+}
+
+export const postBlog = async (blogData) => {
+    const response = await axiosInstance.post("/blogs/new-blog", blogData);
+    return response.data;
+}
+
+export const getRecommendedUsers = async () => {
+    const response = await axiosInstance.get("/users");
+    console.log(response.data);
+    return response.data;
+}
+
+export const getOutgoingFriendReqs = async () => {
+    const response = await axiosInstance.get("/users/outgoing-friend-request");
+    return response.data;
+}
+
+export const sendFriendRequest = async (userId) => {
+    const response = await axiosInstance.post(`/users/friend-request/${userId}`);
+    return response.data;
+}
