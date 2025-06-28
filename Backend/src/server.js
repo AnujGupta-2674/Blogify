@@ -18,12 +18,11 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors(
-    {
-        origin: '*',
-        credentials: true, // Allow credentials (cookies, authorization headers, etc.
-    }
-));
+app.use(cors({
+    origin: process.env.CLIENT_URL || 'https://blogify-d0ba.onrender.com',
+    credentials: true
+}));
+
 
 //Routes
 app.use("/api/auth", authRoutes);
