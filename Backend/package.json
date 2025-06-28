@@ -11,6 +11,9 @@
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
   },
+  "bugs": {
+    "url": "https://github.com/AnujGupta-2674/Streamify/issues"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
