@@ -2,21 +2,22 @@
   "name": "blogify",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/AnujGupta-2674/Blogify#readme",
-  "bugs": {
-    "url": "https://github.com/AnujGupta-2674/Blogify/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AnujGupta-2674/Blogify.git"
-  },
-  "license": "ISC",
-  "author": "Anuj Gupta",
-  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm install --prefix Backend && npm install --prefix Frontend && npm run build --prefix Frontend",
     "start": "npm run start --prefix Backend"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnujGupta-2674/Blogify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AnujGupta-2674/Blogify/issues"
+  },
+  "homepage": "https://github.com/AnujGupta-2674/Blogify#readme"
 }
