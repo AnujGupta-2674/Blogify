@@ -4,6 +4,7 @@ import { login } from '../lib/api';
 import { ShipWheelIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useThemeStore } from '../store/useThemeStore';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({

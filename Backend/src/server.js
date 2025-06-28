@@ -8,8 +8,11 @@ import usersRoutes from "./routes/users.routes.js";
 import blogsRoutes from "./routes/blogs.routes.js";
 import chatsRoutes from "./routes/chat.routes.js";
 import { app, server } from "./lib/socket.js";
+import path from "path";
 
 const port = process.env.PORT || 5001;
+
+const __dirname = path.resolve();
 
 //MiddleWares
 app.use(express.json());
@@ -27,6 +30,15 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/blogs", blogsRoutes);
 app.use("/api/chats", chatsRoutes);
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../Frontend/dist")));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../Frontend", "dist", "index.html"));
+    })
+}
+
 
 
 //Listening
