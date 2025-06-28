@@ -1,4 +1,5 @@
 import Message from "../models/message.model.js";
+import { getUserSocketId, io } from "../lib/socket.js";
 
 export const getMessages = async (req, res) => {
     const myId = req.user._id;
@@ -33,9 +34,14 @@ export const sendMessage = async (req, res) => {
         });
         await newMessage.save();
 
+        //Realtime Message Functionality
+        const receiverSocketId = getUserSocketId(receiverId);
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
+
         res.status(201).json(newMessage);
 
-        //Realtime Functionality to be added using socket
     } catch (error) {
         console.log(`Error in sendMessage controller ${error.message}`);
         res.status(500).json({ error: "Internal Server Error" });

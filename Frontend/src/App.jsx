@@ -12,15 +12,26 @@ import FriendsPage from "./Pages/FriendsPage.jsx";
 import CollaboratePage from "./Pages/CollaboratePage.jsx";
 import NotificationPage from "./Pages/NotificationPage.jsx";
 import ProfilePage from "./Pages/ProfilePage.jsx";
+import { useSocketStore } from "./store/useSocketStore.jsx";
+import { useEffect } from "react";
 
 const App = () => {
   const { isLoading, authUser } = useAuthUser();
 
   const isAuthenticated = Boolean(authUser);
 
+  const isOnboarded = authUser?.isOnboarded;
+
   const { theme } = useThemeStore();
 
-  const isOnboarded = authUser?.isOnboarded;
+  const { connectToSocket, disconnectSocket } = useSocketStore();
+
+  useEffect(() => {
+    if (authUser && isOnboarded) {
+      connectToSocket(authUser);
+    }
+    return () => disconnectSocket();
+  }, [authUser]);
 
   if (isLoading) {
     return <PageLoader />

@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { signup } from '../lib/api';
 import { ShipWheelIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useThemeStore } from '../store/useThemeStore';
 
 const SignupPage = () => {
   const [signupData, setSignupData] = useState({
@@ -11,6 +12,8 @@ const SignupPage = () => {
     email: '',
     password: '',
   });
+
+  const { theme } = useThemeStore();
 
   const queryClient = useQueryClient();
 
@@ -33,7 +36,7 @@ const SignupPage = () => {
   }
 
   return (
-    <div className='h-screen flex items-center justify-center p-4 sm:p-6 md:p-8' data-theme="forest">
+    <div className='h-screen flex items-center justify-center p-4 sm:p-6 md:p-8' data-theme={theme}>
       <div className='border border-primary/25 flex flex-col lg:flex-row w-full max-w-5xl mx-auto bg-base-100 rounded-xl shadow-lg overflow-hidden'>
         {/* Signup form - Left Side */}
         <div className='w-full lg:w-1/2 p-4 sm:p-8 flex flex-col'>

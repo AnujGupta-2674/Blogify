@@ -7,8 +7,8 @@ import authRoutes from "./routes/auth.routes.js";
 import usersRoutes from "./routes/users.routes.js";
 import blogsRoutes from "./routes/blogs.routes.js";
 import chatsRoutes from "./routes/chat.routes.js";
+import { app, server } from "./lib/socket.js";
 
-const app = express();
 const port = process.env.PORT || 5001;
 
 //MiddleWares
@@ -30,7 +30,7 @@ app.use("/api/chats", chatsRoutes);
 
 
 //Listening
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server is listening on port:${port}`);
     connectToDB();
 });

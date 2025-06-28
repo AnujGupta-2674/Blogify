@@ -3,7 +3,7 @@ import PageLoader from "../Components/PageLoader.jsx"
 import { getRecommendedBlogs } from '../lib/api.js';
 
 const HomePage = () => {
-    const { data = [], isLoading, error } = useQuery({
+    const { data = [], isLoading } = useQuery({
         queryKey: ["blogs"],
         queryFn: getRecommendedBlogs,
         retry: false
