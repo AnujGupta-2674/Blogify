@@ -22,8 +22,6 @@ const ProfilePage = () => {
         retry: false
     });
 
-    console.log("Blogs:", data.blogs);
-
     const { mutate: postBlogMutation, isPending } = useMutation({
         mutationFn: postBlog,
         onSuccess: () => {
