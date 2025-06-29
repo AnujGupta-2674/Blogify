@@ -8,10 +8,11 @@ export const useSocketStore = create((set, get) => ({
     connectToSocket: async (authUser) => {
         if (!authUser || get().socket?.connected) return;
 
-        const socket = io("http://localhost:5001", {
+        const socket = io({
             query: {
                 userId: authUser._id
-            }
+            },
+            withCredentials: true
         });
 
         socket.connect();
