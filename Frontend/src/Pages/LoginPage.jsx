@@ -16,11 +16,14 @@ const LoginPage = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutate: loginMutuation, isPending, error } = useMutation({
+  const { mutate: loginMutuation, isPending } = useMutation({
     mutationFn: login,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['authUser'] });
     },
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    }
   });
 
   const handleLogin = (e) => {
@@ -40,10 +43,6 @@ const LoginPage = () => {
               Blogify
             </span>
           </div>
-          {/* Error Message */}
-          {error && (
-            toast.error(error.repsonse.data.message)
-          )}
           <div className='w-full'>
             <form onSubmit={handleLogin}>
               <div className='space-y-4'>
