@@ -71,7 +71,7 @@ const FriendsPage = () => {
                                                     <img src={user.profilePic} alt={user.fullName} />
                                                 </div>
                                             </div>
-
+                                            {user.fullName && <p className="text-sm opacity-70">{user.fullName}</p>}
                                             {user.bio && <p className="text-sm opacity-70">{user.bio}</p>}
 
                                             {/* Action button */}
