@@ -1,6 +1,6 @@
 # Blogify 📜
 
-A full-stack blogging web application where users can create, edit, and delete blog posts, interact via likes and communicate in real-time via messaging.
+A full-stack blogging web application where users can create, edit, and delete blog posts, interact via likes and add friends to collaborate and communicate in real-time via messaging.
 
 ![Blogify Logo](./client/public/blogify-logo.png)
 
@@ -13,7 +13,6 @@ A full-stack blogging web application where users can create, edit, and delete b
 * [Getting Started](#getting-started)
 * [Environment Variables](#environment-variables)
 * [Folder Structure](#folder-structure)
-* [Screenshots](#screenshots)
 * [Contributing](#contributing)
 * [License](#license)
 
