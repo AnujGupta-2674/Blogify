@@ -21,6 +21,15 @@ const Navbar = () => {
 
     return (
         <nav className="bg-base-200 border-b border-base-300 sticky top-0 z-30 h-16 flex items-center">
+            <div className="p-5 border-b border-base-300">
+                <Link to="/" className="flex items-center gap-2.5">
+                    <ShipWheelIcon className="size-9 text-primary" />
+                    <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary  tracking-wider">
+                        Blogify
+                    </span>
+                </Link>
+            </div>
+
             <div className="container mx-auto px-4 sm:px-6 lg_px-8">
                 <div className="flex items-center justify-end w-full">
                     {/* Logo - Only in the chat page */}
