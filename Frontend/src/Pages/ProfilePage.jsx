@@ -1,20 +1,37 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import useAuthUser from '../hooks/useAuthUser';
 import PageLoader from '../Components/PageLoader.jsx';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getUserBlogs, postBlog } from '../lib/api.js';
 import toast from 'react-hot-toast';
+import { Wand2 } from 'lucide-react';
+import { axiosInstance } from '../lib/axios.js';
 
 const ProfilePage = () => {
     const queryClient = useQueryClient();
 
     const { authUser } = useAuthUser();
     const [showModal, setShowModal] = useState(false);
+    const [selectedBlog, setSelectedBlog] = useState(null);
     const [blogData, setBlogData] = useState({
         title: '',
         content: '',
         tags: [],
     });
+
+    const textareaRef = useRef(null);
+
+    const adjustHeight = () => {
+        const ta = textareaRef.current;
+        if (ta) {
+            ta.style.height = "0px";
+            ta.style.height = ta.scrollHeight + "px";
+        }
+    };
+
+    useEffect(() => {
+        adjustHeight();
+    }, [blogData.content]);
 
     const { data = [], isLoading } = useQuery({
         queryKey: ['userBlogs'],
@@ -31,7 +48,7 @@ const ProfilePage = () => {
         onError: (error) => {
             toast.error(error?.response?.data?.message || "Failed to post blog");
         }
-    })
+    });
 
     if (isLoading) return <PageLoader />;
 
@@ -39,6 +56,16 @@ const ProfilePage = () => {
         e.preventDefault();
         postBlogMutation(blogData);
         setBlogData({ title: '', content: '', tags: [] });
+    };
+
+    const getGenAIBlog = async (title) => {
+        try {
+            const response = await axiosInstance.post("/blogs/gemini-generate", { title });
+            setBlogData((prev) => ({ ...prev, content: response.data.genAIContent }));
+        } catch (error) {
+            console.error("Error generating blog with Gemini:", error);
+            toast.error("Failed to generate blog content.");
+        }
     }
 
     return (
@@ -83,16 +110,41 @@ const ProfilePage = () => {
             {/* Modal for Blog Posting */}
             {showModal && (
                 <div className="modal modal-open">
-                    <div className="modal-box">
+                    <div className="modal-box relative">
                         <h3 className="font-bold text-lg mb-4">Create New Blog</h3>
-                        <input type="text" required placeholder="Blog Title" className="input input-bordered w-full mb-3" value={blogData.title} onChange={(e) => {
-                            setBlogData({ ...blogData, title: e.target.value })
-                        }
-                        } />
-                        <textarea placeholder="Write your blog here..." required className="textarea textarea-bordered w-full h-32 mb-4" value={blogData.content} onChange={(e) => {
-                            setBlogData({ ...blogData, content: e.target.value });
-                        }} />
-                        <input type="text" placeholder="Tag1, Tag2, Tag3" required className="input input-bordered w-full mb-3" value={blogData.tags}
+                        <input type="text" required placeholder="Blog Title" className="input input-bordered w-full mb-3"
+                            value={blogData.title}
+                            onChange={(e) => setBlogData({ ...blogData, title: e.target.value })}
+                        />
+                        <div className="relative">
+                            <textarea
+                                ref={textareaRef}
+                                placeholder="Write your blog here..."
+                                required
+                                className="textarea textarea-bordered w-full h-32 mb-4 pr-10"
+                                value={blogData.content}
+                                onChange={(e) => {
+                                    setBlogData({ ...blogData, content: e.target.value });
+                                }}
+                            />
+                            {blogData.title && (
+                                <button
+                                    type="button"
+                                    className="absolute bottom-8 left-3 text-gray-500 hover:text-gray-700"
+                                    onClick={() => {
+                                        getGenAIBlog(blogData.title)
+                                    }}
+                                >
+                                    <Wand2 className="w-5 h-5" />
+                                </button>
+                            )}
+                        </div>
+                        <input
+                            type="text"
+                            placeholder="Tag1, Tag2, Tag3"
+                            required
+                            className="input input-bordered w-full mb-3"
+                            value={blogData.tags}
                             onChange={(e) => {
                                 const newTags = e.target.value.split(',').map(tag => tag.trim());
                                 setBlogData({ ...blogData, tags: newTags });
@@ -102,15 +154,31 @@ const ProfilePage = () => {
                             <button
                                 className="btn btn-success"
                                 disabled={isPending}
-                                onClick={(e) => {
-                                    handleBlogPost(e);
-                                }}
+                                onClick={handleBlogPost}
                             >
                                 Post
                             </button>
-                            <button className="btn" onClick={() => setShowModal((prev) => !prev)}>
+                            <button className="btn" onClick={() => setShowModal(false)}>
                                 Cancel
                             </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Modal for Blog View */}
+            {selectedBlog && (
+                <div className="modal modal-open">
+                    <div className="modal-box relative">
+                        <h2 className="text-2xl font-bold mb-3 text-center">{selectedBlog.title}</h2>
+                        <p className="mb-4 text-gray-500">{selectedBlog.content}</p>
+                        <div className="flex flex-wrap mb-4">
+                            {selectedBlog.tags.map((tag, idx) => (
+                                <span key={idx} className="badge badge-secondary p-3 mr-2 mb-2">{tag}</span>
+                            ))}
+                        </div>
+                        <div className="modal-action">
+                            <button className="btn" onClick={() => setSelectedBlog(null)}>Close</button>
                         </div>
                     </div>
                 </div>
@@ -123,7 +191,11 @@ const ProfilePage = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                     {data?.blogs?.length > 0 ? (
                         data.blogs.map((blog, idx) => (
-                            <div key={idx} className='card bg-base-100 shadow-md p-4'>
+                            <div
+                                key={idx}
+                                className='card bg-base-100 shadow-md p-4 cursor-pointer hover:shadow-lg transition'
+                                onClick={() => setSelectedBlog(blog)} // open modal
+                            >
                                 <h3 className='text-xl font-bold mb-2'>{blog.title}</h3>
                                 <p className='text-sm text-gray-500'>{blog.content.slice(0, 100)}...</p>
                                 <div className='flex flex-wrap mt-4'>
@@ -140,6 +212,6 @@ const ProfilePage = () => {
             </div>
         </div>
     );
-}
+};
 
 export default ProfilePage;

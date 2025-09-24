@@ -1,4 +1,5 @@
 import Blog from "../models/blogs.model.js";
+import { generateBlogWithGenAI } from "../server.js";
 
 export const getUserBlogs = async (req, res) => {
     try {
@@ -74,5 +75,31 @@ export const createBlog = async (req, res) => {
         });
     }
 };
+
+export const generateBlogWithGemini = async (req, res) => {
+    try {
+        const { title } = req.body;
+        if (!title) {
+            return res.status(400).json({
+                success: false,
+                message: "Title is required to generate blog."
+            });
+        }
+
+        const prompt = `Write a detailed blog post on the topic: "${title}".The blog should not be more than 75 words`;
+        const response = await generateBlogWithGenAI(prompt);
+        return res.status(200).json({
+            success: true,
+            genAIContent: response
+        });
+
+    } catch (error) {
+        console.error("Error creating blog:", error.message);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong while generating the blog."
+        });
+    }
+}
 
 

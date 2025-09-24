@@ -10,5 +10,6 @@ router.get('/', blogsController.getUserBlogs);
 router.get('/recommend-blogs', blogsController.recommendedBlogs);
 
 router.post("/new-blog", blogsController.createBlog);
+router.post("/gemini-generate", blogsController.generateBlogWithGemini);
 
 export default router;
