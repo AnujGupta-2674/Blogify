@@ -24,10 +24,10 @@ app.use(cors({
     credentials: true
 }));
 
-console.log(process.env.GEMINI_API_key);
 const ai = new GoogleGenAI(process.env.GEMINI_API_key);
 
 export const generateBlogWithGenAI = async (prompt) => {
+    console.log(process.env.GEMINI_API_key);
     const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: prompt,
