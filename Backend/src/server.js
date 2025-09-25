@@ -32,6 +32,7 @@ export const generateBlogWithGenAI = async (prompt) => {
         model: "gemini-2.5-flash",
         contents: prompt,
     });
+    console.log("GenAI Response:", response);
     return response.text;
 }
 
